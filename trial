@@ -1,0 +1,56 @@
+Sub FindCoordinates()
+
+'User input
+Span = Cells(2, 2)
+Height = Cells(3, 2)
+
+'Fixed values
+Nbmember = 20 'number of bottom members
+Njoints = Nbmember + 1 + Nbmember - 2 + 1 'number of joints
+
+For i = 1 To Njoints
+Cells(7 + i, 1) = i
+Next i
+
+Centre = Nbmember / 2
+Height_Diff = Height / Centre
+
+'Calculations:
+'Length of horizontal members
+Length = Span / Nbmember
+
+'X coordinates of joints
+Cells(8, 2) = 0
+Cells(47, 2) = Span
+
+x = 0
+For i = 9 To 46 Step 2
+x = x + Length
+Cells(i, 2) = x
+Cells(i + 1, 2) = x
+Next i
+
+'Y coordinates of joints
+Cells(8, 3) = 0
+Cells(27, 3) = Height
+
+y = 0
+For i = 9 To 26 Step 2  'Left side of top joints
+y = y + Height_Diff
+Cells(i, 3) = y
+Next i
+
+y = Height
+For i = 29 To 46 Step 2  'Right side of top truss
+y = y - Height_Diff
+Cells(i, 3) = y
+Next i
+
+For i = 10 To 46 Step 2 'Bottom joints
+Cells(i, 3) = 0
+Next i
+
+Cells(47, 3) = 0
+
+
+End Sub
